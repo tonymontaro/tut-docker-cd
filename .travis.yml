@@ -8,3 +8,17 @@ before_install:
 
 script:
   - docker run -e CI=true tonymontaro/tut-docker-cd npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-3"
+  app: "tut-docker-cd"
+  env: "TutDockerCd-env"
+  bucket_name: "elasticbeanstalk-eu-west-3-261195508367"
+  bucket_path: "tut-docker-cd"
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
